@@ -27,6 +27,7 @@ import { CreatePaymentArgs } from "./CreatePaymentArgs";
 import { UpdatePaymentArgs } from "./UpdatePaymentArgs";
 import { DeletePaymentArgs } from "./DeletePaymentArgs";
 import { Transaction } from "../../transaction/base/Transaction";
+import { PaymentCreateInput } from "./PaymentCreateInput";
 import { PaymentService } from "../payment.service";
 @common.UseGuards(GqlDefaultAuthGuard, gqlACGuard.GqlACGuard)
 @graphql.Resolver(() => Payment)
@@ -178,5 +179,13 @@ export class PaymentResolverBase {
       return null;
     }
     return result;
+  }
+
+  @graphql.Mutation(() => Payment)
+  async ProcessPayment(
+    @graphql.Args()
+    args: PaymentCreateInput
+  ): Promise<Payment> {
+    return this.service.ProcessPayment(args);
   }
 }

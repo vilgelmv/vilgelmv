@@ -15,6 +15,8 @@ import {
   Payment as PrismaPayment,
   Transaction as PrismaTransaction,
 } from "@prisma/client";
+import { PaymentCreateInput } from "./PaymentCreateInput";
+import { Payment } from "./Payment";
 
 export class PaymentServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -47,5 +49,8 @@ export class PaymentServiceBase {
         where: { id: parentId },
       })
       .transaction();
+  }
+  async ProcessPayment(args: PaymentCreateInput): Promise<Payment> {
+    throw new Error("Not implemented");
   }
 }

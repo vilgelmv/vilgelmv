@@ -237,4 +237,21 @@ export class PaymentControllerBase {
       throw error;
     }
   }
+
+  @common.Post("/process-payment")
+  @swagger.ApiOkResponse({
+    type: Payment,
+  })
+  @swagger.ApiNotFoundResponse({
+    type: errors.NotFoundException,
+  })
+  @swagger.ApiForbiddenResponse({
+    type: errors.ForbiddenException,
+  })
+  async ProcessPayment(
+    @common.Body()
+    body: PaymentCreateInput
+  ): Promise<Payment> {
+    return this.service.ProcessPayment(body);
+  }
 }
